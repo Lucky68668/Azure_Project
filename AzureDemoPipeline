@@ -1,0 +1,36 @@
+Parameters:
+ Environment:
+  Description: what environment type is this being deployed in
+  type: 'string'
+  Default: 'sandbox'
+  AllowedValues: ['sandbx', 'dev, test, 'prod']
+ CreatedByTag:
+  Description: 'Tag of stack creation'
+  Default: 'Unknown'
+  Type: 'String'
+ InsightZoneGroupTag:
+  Description: 'Tag of Insight zone group'
+  Default: 'Unknown Insight Zone Group'
+  Type: 'String'
+ StackAdhocId:
+  Description: 'Name of the Stack Adhoc ID'
+  Type: 'String'
+  Default: 'NA'
+ ResourceBucketName:
+  Description: 'Name of the Resource where zips/code will reside'
+  Type: 'String'
+Resources:
+ PackageBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+      BucketName: !Ref ResourceBucketName
+      BucketEncryption:
+          ServerSideEncryptionConfiguration:
+                ServerSideEncryptionByDefault:
+                  SSEAlogorith: 'AES256'
+  Tags:
+        key: 'CreatedBy'
+        Value: !Ref CreatedBytag
+        Value: !Ref InsightZoneGroupTag
+
+
